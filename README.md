@@ -48,7 +48,7 @@ Frontend dosyalarını src/main/resources/static klasörüne koy
 
 3. IntelliJ IDEA'da aç:
 
-pom.xml dosyasına sağ tıkla → Maven → Generate Sources and Update Folders
+
 
 4. Çalıştır:
 
