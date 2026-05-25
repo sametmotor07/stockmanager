@@ -1,8 +1,0 @@
-# Maven target
-/target/
-
-# IntelliJ IDEA
-/.idea/
-
-# H2 database files
-/data/
