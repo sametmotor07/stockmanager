@@ -57,9 +57,10 @@ Yeşil ▶ butonuna bas
 
 5. Test et:
 
-API: http://localhost:8080/products
-H2 Konsol: http://localhost:8080/h2-console
-Frontend: http://localhost:8080/index.html
+-API: http://localhost:8080/products
+
+
+-Frontend: http://localhost:8080/index.html
 
 
 Postman ile Test
