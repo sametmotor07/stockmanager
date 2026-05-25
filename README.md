@@ -1,126 +1,76 @@
-# 📦 Stock Manager - Stok Yönetim Sistemi
-
+Stock Manager - Stok Yönetim Sistemi
 Spring Boot ile geliştirilmiş RESTful bir stok yönetim API'sidir.
 
----
+Kullanılan Teknolojiler
+TeknolojiAçıklamaJava 17Programlama diliSpring Boot 3.4.5Backend frameworkSpring Data JPAVeritabanı işlemleriSpring SecurityKimlik doğrulama ve yetkilendirme (RBAC)Spring ValidationGelen verilerin doğrulanmasıH2 DatabaseGeçici bellek içi veritabanıMavenBağımlılık yönetimi
 
-## 🚀 Kullanılan Teknolojiler
-
-| Teknoloji | Açıklama |
-|---|---|
-| Java 17 | Programlama dili |
-| Spring Boot 3.4.5 | Backend framework |
-| Spring Data JPA | Veritabanı işlemleri |
-| Spring Security | Kimlik doğrulama ve yetkilendirme (RBAC) |
-| Spring Validation | Gelen verilerin doğrulanması |
-| H2 Database | Geçici bellek içi veritabanı |
-| Maven | Bağımlılık yönetimi |
-
----
-
-## 📁 Proje Yapısı
-
-```
+Proje Yapısı
 stockmanager/
-└── src/main/java/org/example/stockmanager/
-    ├── controller/   → HTTP isteklerini karşılar
-    ├── service/      → İş mantığı
-    ├── repository/   → Veritabanı işlemleri
-    ├── entity/       → Veritabanı tabloları
-    ├── dto/          → Gelen veri doğrulama
-    ├── exception/    → Hata yönetimi
-    └── security/     → Spring Security RBAC
-```
+├── src/main/java/org/example/stockmanager/
+│   ├── controller/   → HTTP isteklerini karşılar
+│   ├── service/      → İş mantığı
+│   ├── repository/   → Veritabanı işlemleri
+│   ├── entity/       → Veritabanı tabloları
+│   ├── dto/          → Gelen veri doğrulama
+│   ├── exception/    → Hata yönetimi
+│   ├── security/     → Spring Security RBAC
+│   └── StockmanagerApplication.java
+└── src/main/resources/
+    ├── static/       → Frontend dosyaları (index.html vb.)
+    └── application.properties
 
----
+Kullanıcı Rolleri (RBAC)
+KullanıcıŞifreRolYetkilersametsamet07ADMINGET, POST, PUT, DELETEuseruser123USERSadece GET
 
-## 👤 Kullanıcı Rolleri (RBAC)
+API Endpointleri
+Temel CRUD
+MethodURLAçıklamaYetkiGET/productsTüm ürünleri listeleUSER, ADMINGET/products/{id}ID ile ürün getirUSER, ADMINPOST/productsYeni ürün ekleADMINPUT/products/{id}Ürün güncelleADMINDELETE/products/{id}Ürün silADMIN
+Özel Sorgular
+MethodURLAçıklamaYetkiGET/products/category/{category}Kategoriye göre filtreleUSER, ADMINGET/products/low-stock/{stock}Stok eşiğin altındakilerUSER, ADMINGET/products/price-range?minPrice=&maxPrice=Fiyat aralığına göre filtreleUSER, ADMINGET/products/search?name=İsme göre araUSER, ADMIN
 
-| Kullanıcı | Şifre | Rol | Yetkiler |
-|---|---|---|---|
-| `admin` | `admin123` | ADMIN | GET, POST, PUT, DELETE |
-| `user` | `user123` | USER | Sadece GET |
+Kurulum ve Çalıştırma
+Gereksinimler
 
----
+Java 17+
+IntelliJ IDEA
+Postman (test için)
 
-## 🔗 API Endpointleri
+Adımlar
+1. Repoyu klonla:
+bashgit clone https://github.com/kullanici-adin/stockmanager.git
+cd stockmanager
+2. Dosyaları yerleştir:
 
-### Temel CRUD
-| Method | URL | Açıklama | Yetki |
-|---|---|---|---|
-| GET | `/products` | Tüm ürünleri listele | USER, ADMIN |
-| GET | `/products/{id}` | ID ile ürün getir | USER, ADMIN |
-| POST | `/products` | Yeni ürün ekle | ADMIN |
-| PUT | `/products/{id}` | Ürün güncelle | ADMIN |
-| DELETE | `/products/{id}` | Ürün sil | ADMIN |
+Yeni bir klasör aç ve içinde src/main/java/org/example/stockmanager yolunu oluştur
+controller, dto, entity, exception, repository, security, service klasörlerini oluştur
+Her dosyayı ilgili klasörüne koy, StockmanagerApplication.java ana dizinde kalacak
+Frontend dosyalarını src/main/resources/static klasörüne koy
 
-### Özel Sorgular
-| Method | URL | Açıklama | Yetki |
-|---|---|---|---|
-| GET | `/products/category/{category}` | Kategoriye göre filtrele | USER, ADMIN |
-| GET | `/products/low-stock/{stock}` | Stok eşiğin altındakiler | USER, ADMIN |
-| GET | `/products/price-range?minPrice=&maxPrice=` | Fiyat aralığına göre filtrele | USER, ADMIN |
-| GET | `/products/search?name=` | İsme göre ara | USER, ADMIN |
+3. IntelliJ IDEA'da aç:
 
----
+pom.xml dosyasına sağ tıkla → Maven → Generate Sources and Update Folders
 
-## ⚙️ Kurulum ve Çalıştırma
+4. Çalıştır:
 
-### Gereksinimler
-- Java 17+
-- IntelliJ IDEA
-- Postman (test için)
+StockmanagerApplication.java dosyasını aç
+Yeşil ▶ butonuna bas
 
-### Adımlar
+5. Test et:
 
-
-```**1.Dosyaları iç içe aktarma:**
-- `klasörünüzün içine bi tane file açın ve src/main/java/org/example/projenizinadı 
--  olacak şekilde dosya klasörleri açın.
--  Dosyalarınızın şekline göre dosya oluşturun ve hepsini tek tek içine yükleyin 
--  sadece application dosyanız kalacak şekilde.
--  IntelliJ IDEA'da aç **
-
-**3. Çalıştır:**
-- `StockmanagerApplication.java` dosyasını aç
-- Yeşil ▶ butonuna bas
-
-**4. Test et:**
-- API: `http://localhost:8080/products`
+API: http://localhost:8080/products
+H2 Konsol: http://localhost:8080/h2-console
+Frontend: http://localhost:8080/index.html
 
 
----
-
-## 📬 Postman ile Test
-
+Postman ile Test
 POST isteği için Body → raw → JSON:
-
-```json
-{
+json{
   "name": "Laptop",
   "category": "Elektronik",
   "stock": 50,
   "price": 15000.00
 }
-```
+Postman'de Authorization → Basic Auth sekmesinden kullanıcı adı ve şifre gir.
 
-Postman'de **Authorization → Basic Auth** sekmesinden kullanıcı adı ve şifre gir.
-eğer şifreyi değiştirmekle uğraşmak istemiyorsanız 
-(role)ADMİN için 
-samet
-şifre:samet07
-(role)USER için
-motor
-şifre:motor123
-
-
----
-
-## ✅ Validation Kuralları
-
-| Alan | Kural |
-|---|---|
-| `name` | Boş olamaz, 2-100 karakter |
-| `category` | Boş olamaz |
-| `stock` | 0'dan küçük olamaz |
-| `price` | 0'dan büyük olmalı |
+Validation Kuralları
+AlanKuralnameBoş olamaz, 2-100 karaktercategoryBoş olamazstock0'dan küçük olamazprice0'dan büyük olmalı

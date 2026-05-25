@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Manager | Anasayfa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">SM</span>
+        <div>
+          <h1>StockManager</h1>
+          <p>Shopify tarzı stok paneli</p>
+        </div>
+      </div>
+      <nav class="menu">
+        <a href="index.html" class="menu-item active">Anasayfa</a>
+        <a href="products.html" class="menu-item">Ürünler</a>
+        <a href="products.html#categories" class="menu-item">Kategoriler</a>
+      </nav>
+      <div class="sidebar-footer">
+        <p class="small-text">API: localhost:8080/products</p>
+        <button id="refreshData" class="button button-secondary">Verileri Yenile</button>
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <p class="page-label">Dashboard</p>
+          <h2>Anasayfa</h2>
+        </div>
+        <div class="top-actions">
+          <div class="status-chip" id="loginStatus">Bağlantı: <span>Bekleniyor...</span></div>
+          <button id="loginButton" class="button">Bağlan</button>
+        </div>
+      </header>
+      <section class="stats-grid">
+        <article class="card stat-card">
+          <p class="stat-title">Toplam Ürün</p>
+          <h3 id="statProducts">—</h3>
+        </article>
+        <article class="card stat-card">
+          <p class="stat-title">Kategori</p>
+          <h3 id="statCategories">—</h3>
+        </article>
+        <article class="card stat-card">
+          <p class="stat-title">Toplam Stok</p>
+          <h3 id="statStock">—</h3>
+        </article>
+        <article class="card stat-card">
+          <p class="stat-title">Stok Değeri</p>
+          <h3 id="statValue">—</h3>
+        </article>
+      </section>
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h3>Son Eklenen Ürünler</h3>
+            <p>Shopify stilinde kartlar ile son ürünlere hızlıca bakın.</p>
+          </div>
+          <button id="refreshCards" class="button button-secondary">Yenile</button>
+        </div>
+        <div class="product-grid" id="recentProducts">
+          <div class="empty-state">Ürünler yükleniyor...</div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="auth.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

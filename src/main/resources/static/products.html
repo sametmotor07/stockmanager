@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Manager | Ürünler</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">SM</span>
+        <div>
+          <h1>StockManager</h1>
+          <p>Shopify tarzı stok paneli</p>
+        </div>
+      </div>
+      <nav class="menu">
+        <a href="index.html" class="menu-item">Anasayfa</a>
+        <a href="products.html" class="menu-item active">Ürünler</a>
+        <a href="products.html#categories" class="menu-item">Kategoriler</a>
+      </nav>
+      <div class="sidebar-footer">
+        <p class="small-text">API: localhost:8080/products</p>
+        <button id="reloadProducts" class="button button-secondary">Yenile</button>
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <p class="page-label">Ürün Yönetimi</p>
+          <h2>Ürünler</h2>
+        </div>
+        <div class="top-actions">
+          <div class="status-chip" id="loginStatus">Bağlantı: <span>Bekleniyor...</span></div>
+          <button id="loginButton" class="button">Bağlan</button>
+        </div>
+      </header>
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h3>Ürün Listesi</h3>
+            <p>Ürünleri filtreleyin, düzenleyin veya silin.</p>
+          </div>
+          <div class="header-actions">
+            <input id="searchInput" class="input input-inline" placeholder="Ürün ara..." type="search">
+            <select id="categoryFilter" class="input input-inline">
+              <option value="">Tüm Kategoriler</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Ürün</th>
+                <th>Kategori</th>
+                <th>Stok</th>
+                <th>Fiyat</th>
+                <th>İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody">
+              <tr><td colspan="6" class="empty-state">Ürünler yükleniyor...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="card form-card" id="categories">
+        <div class="card-header">
+          <h3>Yeni Ürün Ekle</h3>
+        </div>
+        <div class="form-grid">
+          <label>
+            <span>Ürün Adı</span>
+            <input id="newName" class="input" placeholder="Örnek: Mor T-shirt">
+          </label>
+          <label>
+            <span>Kategori</span>
+            <input id="newCategory" class="input" placeholder="Örnek: Giyim">
+          </label>
+          <label>
+            <span>Stok</span>
+            <input id="newStock" class="input" type="number" min="0" value="0">
+          </label>
+          <label>
+            <span>Fiyat</span>
+            <input id="newPrice" class="input" type="number" min="0" step="0.01" value="0.00">
+          </label>
+          <button id="addProductButton" class="button">Ürün Ekle</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="auth.js"></script>
+  <script src="products.js"></script>
+</body>
+</html>
