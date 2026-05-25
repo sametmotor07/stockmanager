@@ -73,14 +73,9 @@ stockmanager/
 
 ### Adımlar
 
-**1. Repoyu klonla:**
-```bash
-git clone https://github.com/kullanici-adin/stockmanager.git
-cd stockmanager
-```
 
-**2. IntelliJ IDEA'da aç:**
-- `pom.xml` dosyasına sağ tıkla → **Add as Maven Project**
+```**1.Dosyaları iç içe aktarma:**
+- `klasörünüzün içine bi tane file açın ve src/main/java/org/example/projenizinadı olacak şekilde dosya klasörleri açın.Dosyalarınızın şekline göre dosya oluşturun ve hepsini tek tek içine yükleyin sadece application dosyanız kalacak şekilde.IntelliJ IDEA'da aç **
 
 **3. Çalıştır:**
 - `StockmanagerApplication.java` dosyasını aç
