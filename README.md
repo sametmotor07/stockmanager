@@ -75,7 +75,11 @@ stockmanager/
 
 
 ```**1.Dosyaları iç içe aktarma:**
-- `klasörünüzün içine bi tane file açın ve src/main/java/org/example/projenizinadı olacak şekilde dosya klasörleri açın.Dosyalarınızın şekline göre dosya oluşturun ve hepsini tek tek içine yükleyin sadece application dosyanız kalacak şekilde.IntelliJ IDEA'da aç **
+- `klasörünüzün içine bi tane file açın ve src/main/java/org/example/projenizinadı 
+-  olacak şekilde dosya klasörleri açın.
+-  Dosyalarınızın şekline göre dosya oluşturun ve hepsini tek tek içine yükleyin 
+-  sadece application dosyanız kalacak şekilde.
+-  IntelliJ IDEA'da aç **
 
 **3. Çalıştır:**
 - `StockmanagerApplication.java` dosyasını aç
@@ -83,7 +87,7 @@ stockmanager/
 
 **4. Test et:**
 - API: `http://localhost:8080/products`
-- H2 Konsol: `http://localhost:8080/h2-console`
+
 
 ---
 
@@ -101,6 +105,14 @@ POST isteği için Body → raw → JSON:
 ```
 
 Postman'de **Authorization → Basic Auth** sekmesinden kullanıcı adı ve şifre gir.
+eğer şifreyi değiştirmekle uğraşmak istemiyorsanız 
+(role)ADMİN için 
+samet
+şifre:samet07
+(role)USER için
+motor
+şifre:motor123
+
 
 ---
 
