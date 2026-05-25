@@ -1,20 +1,25 @@
 package org.example.stockmanager.service;
 
-import org.example.stockmanager.dto.ProductRequest;
-import org.example.stockmanager.entity.Product;
-import org.example.stockmanager.repository.ProductRepository;
-import org.springframework.stereotype.Service;
-
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import org.example.stockmanager.dto.ProductRequest;
+import org.example.stockmanager.entity.DeletedProduct;
+import org.example.stockmanager.entity.Product;
+import org.example.stockmanager.repository.DeletedProductRepository;
+import org.example.stockmanager.repository.ProductRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final DeletedProductRepository deletedProductRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, DeletedProductRepository deletedProductRepository) {
         this.productRepository = productRepository;
+        this.deletedProductRepository = deletedProductRepository;
     }
 
     public List<Product> getAllProducts() {
@@ -53,11 +58,40 @@ public class ProductService {
         Optional<Product> optional = productRepository.findById(id);
 
         if (optional.isPresent()) {
-            productRepository.deleteById(id);
+            Product product = optional.get();
+            DeletedProduct deletedProduct = new DeletedProduct();
+            deletedProduct.setProductId(product.getId());
+            deletedProduct.setName(product.getName());
+            deletedProduct.setCategory(product.getCategory());
+            deletedProduct.setStock(product.getStock());
+            deletedProduct.setPrice(product.getPrice());
+            deletedProduct.setDeletedAt(LocalDateTime.now());
+            deletedProductRepository.save(deletedProduct);
+            productRepository.delete(product);
             return true;
         }
 
         return false;
+    }
+
+    public List<DeletedProduct> getDeletedProducts(Integer year, Integer month) {
+        if (year == null && month == null) {
+            return deletedProductRepository.findAll();
+        }
+
+        if (year == null) {
+            return deletedProductRepository.findByDeletedAtMonth(month);
+        }
+
+        if (month == null) {
+            LocalDateTime start = LocalDateTime.of(year, 1, 1, 0, 0);
+            LocalDateTime end = start.plusYears(1);
+            return deletedProductRepository.findAllByDeletedAtBetween(start, end);
+        }
+
+        LocalDateTime start = LocalDateTime.of(year, month, 1, 0, 0);
+        LocalDateTime end = start.plusMonths(1);
+        return deletedProductRepository.findAllByDeletedAtBetween(start, end);
     }
 
     public List<Product> getByCategory(String category) {

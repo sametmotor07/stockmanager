@@ -1,14 +1,24 @@
 package org.example.stockmanager.controller;
 
-import jakarta.validation.Valid;
+import java.util.List;
+
 import org.example.stockmanager.dto.ProductRequest;
+import org.example.stockmanager.entity.DeletedProduct;
 import org.example.stockmanager.entity.Product;
 import org.example.stockmanager.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/products")
@@ -58,6 +68,12 @@ public class ProductController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/deleted")
+    public List<DeletedProduct> getDeletedProducts(@RequestParam(required = false) Integer year,
+                                                   @RequestParam(required = false) Integer month) {
+        return productService.getDeletedProducts(year, month);
     }
 
     @GetMapping("/category/{category}")

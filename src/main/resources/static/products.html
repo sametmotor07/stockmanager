@@ -20,6 +20,7 @@
         <a href="index.html" class="menu-item">Anasayfa</a>
         <a href="products.html" class="menu-item active">Ürünler</a>
         <a href="products.html#categories" class="menu-item">Kategoriler</a>
+        <a href="products.html#deleted" class="menu-item">Silinenler</a>
       </nav>
       <div class="sidebar-footer">
         <p class="small-text">API: localhost:8080/products</p>
@@ -66,6 +67,52 @@
               <tr><td colspan="6" class="empty-state">Ürünler yükleniyor...</td></tr>
             </tbody>
           </table>
+        </div>
+      </section>
+      <section class="card" id="deleted">
+        <div class="card-header">
+          <div>
+            <h3>Silinen Ürünler</h3>
+            <p>Yıl ve aya göre silinen ürünleri buradan inceleyin.</p>
+          </div>
+          <div class="header-actions">
+            <input id="deletedYear" class="input input-inline" placeholder="Yıl" type="number" min="2026" max="2100">
+            <select id="deletedMonth" class="input input-inline">
+              <option value="">Tüm Aylar</option>
+              <option value="1">Ocak</option>
+              <option value="2">Şubat</option>
+              <option value="3">Mart</option>
+              <option value="4">Nisan</option>
+              <option value="5">Mayıs</option>
+              <option value="6">Haziran</option>
+              <option value="7">Temmuz</option>
+              <option value="8">Ağustos</option>
+              <option value="9">Eylül</option>
+              <option value="10">Ekim</option>
+              <option value="11">Kasım</option>
+              <option value="12">Aralık</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Ürün</th>
+                <th>Kategori</th>
+                <th>Stok</th>
+                <th>Fiyat</th>
+                <th>Silinme Zamanı</th>
+              </tr>
+            </thead>
+            <tbody id="deletedTableBody">
+              <tr><td colspan="6" class="empty-state">Silinen ürünler yükleniyor...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footer-actions" style="display:flex; justify-content:flex-end; margin-top:12px;">
+          <button id="loadDeletedButton" class="button button-secondary">Getir</button>
         </div>
       </section>
       <section class="card form-card" id="categories">

@@ -9,6 +9,10 @@ const newName = document.getElementById('newName');
 const newCategory = document.getElementById('newCategory');
 const newStock = document.getElementById('newStock');
 const newPrice = document.getElementById('newPrice');
+const deletedYearInput = document.getElementById('deletedYear');
+const deletedMonthSelect = document.getElementById('deletedMonth');
+const loadDeletedButton = document.getElementById('loadDeletedButton');
+const deletedTableBody = document.getElementById('deletedTableBody');
 
 let products = [];
 
@@ -213,10 +217,80 @@ async function loadProducts() {
   }
 }
 
-loginButton.addEventListener('click', loadProducts);
-reloadProducts.addEventListener('click', loadProducts);
+function formatDeletedAt(dateString) {
+  if (!dateString) {
+    return '-';
+  }
+  const date = new Date(dateString);
+  return date.toLocaleString('tr-TR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+}
+
+function renderDeletedTable(deletedProducts) {
+  deletedTableBody.innerHTML = '';
+
+  if (!deletedProducts.length) {
+    const emptyRow = document.createElement('tr');
+    emptyRow.innerHTML = '<td colspan="6" class="empty-state">Bu kriterde silinen ürün bulunamadı.</td>';
+    deletedTableBody.appendChild(emptyRow);
+    return;
+  }
+
+  deletedProducts.forEach(product => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${product.id}</td>
+      <td>${product.name}</td>
+      <td>${product.category}</td>
+      <td>${product.stock}</td>
+      <td>${formatCurrency(product.price)}</td>
+      <td>${formatDeletedAt(product.deletedAt)}</td>
+    `;
+    deletedTableBody.appendChild(row);
+  });
+}
+
+async function loadDeletedProducts() {
+  try {
+    const year = deletedYearInput.value.trim();
+    const month = deletedMonthSelect.value;
+    let query = '';
+
+    if (year) {
+      query += `year=${encodeURIComponent(year)}`;
+    }
+    if (month) {
+      query += query ? `&month=${encodeURIComponent(month)}` : `month=${encodeURIComponent(month)}`;
+    }
+
+    const path = query ? `/deleted?${query}` : '/deleted';
+    const deletedProducts = await window.auth.fetchWithAuth(path);
+    renderDeletedTable(deletedProducts);
+  } catch (error) {
+    updateStatus('Bağlantı başarısız', false);
+    deletedTableBody.innerHTML = '<tr><td colspan="6" class="empty-state">Silinen ürünler yüklenemedi.</td></tr>';
+    console.error(error);
+  }
+}
+
+loginButton.addEventListener('click', () => {
+  loadProducts();
+  loadDeletedProducts();
+});
+reloadProducts.addEventListener('click', () => {
+  loadProducts();
+  loadDeletedProducts();
+});
+loadDeletedButton.addEventListener('click', loadDeletedProducts);
 searchInput.addEventListener('input', renderProductsTable);
 categoryFilter.addEventListener('change', renderProductsTable);
 addProductButton.addEventListener('click', addProduct);
 
 loadProducts();
+loadDeletedProducts();

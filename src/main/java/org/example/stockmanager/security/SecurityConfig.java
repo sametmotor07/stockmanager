@@ -22,6 +22,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/index.html", "/products.html", "/style.css", "/app.js", "/auth.js", "/products.js", "/favicon.ico", "/manifest.json", "/assets/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/products/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers(HttpMethod.POST, "/products/**").hasRole("ADMIN")
@@ -57,3 +58,5 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
+
