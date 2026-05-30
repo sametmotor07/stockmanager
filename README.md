@@ -37,7 +37,6 @@ Postman (test için)
 
 Adımlar
 1. Repoyu klonla:
-bashgit clone https://github.com/kullanici-adin/stockmanager.git
 cd stockmanager
 2. Dosyaları yerleştir:
 
